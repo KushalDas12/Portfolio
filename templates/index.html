@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Home Section -->
+    <section id="home" class="slide">
+        <div class="content fade-in-up">
+            <h1 class="hero-title">Hello, I'm <span class="highlight">{{ data.name }}</span></h1>
+            <h2 class="hero-subtitle">{{ data.title }}</h2>
+            <p class="hero-desc">{{ data.about }}</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn primary-btn">Contact Me</a>
+                <a href="#projects" class="btn secondary-btn">View Projects</a>
+            </div>
+        </div>
+        <div class="visuals fade-in-right">
+            <!-- Abstract geometric shapes or user image could go here -->
+            <div class="circle-graphic"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="slide">
+        <div class="content">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>{{ data.about }}</p>
+                    <p>I am passionate about creating immersive experiences through Game Development and AR/VR
+                        technologies. Currently studying B.Tech at {{ data.education[0].institution }}.</p>
+                </div>
+                <div class="education-cards">
+                    {% for edu in data.education %}
+                    <div class="card">
+                        <h3>{{ edu.degree }}</h3>
+                        <p class="institution">{{ edu.institution }}</p>
+                        <p class="year">{{ edu.year }}</p>
+                        <ul>
+                            {% for detail in edu.details %}
+                            <li>{{ detail }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="slide">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>Languages</h3>
+                <div class="skill-tags">
+                    {% for skill in data.skills.languages %}
+                    <span class="tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Tools & Technologies</h3>
+                <div class="skill-tags">
+                    {% for tool in data.skills.tools %}
+                    <span class="tag">{{ tool }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Fields of Interest</h3>
+                <div class="skill-tags">
+                    {% for field in data.skills.fields %}
+                    <span class="tag">{{ field }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="slide">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            {% for exp in data.experience %}
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>{{ exp.role }}</h3>
+                    <h4 class="company">{{ exp.company }}</h4>
+                    <span class="date">{{ exp.duration }}</span>
+                    <span class="location">{{ exp.location }}</span>
+                    <ul class="job-desc">
+                        {% for desc in exp.description %}
+                        <li>{{ desc }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Floating 3D Icons Background -->
+    <div class="floating-icons">
+        <div class="floating-icon" style="--i:1; --x:10%; --speed:0.05"><i class="fab fa-unity"></i></div>
+        <div class="floating-icon" style="--i:2; --x:80%; --speed:0.07"><i class="fab fa-python"></i></div>
+        <div class="floating-icon" style="--i:3; --x:30%; --speed:0.04"><i class="fas fa-code"></i></div>
+        <div class="floating-icon" style="--i:4; --x:70%; --speed:0.06"><i class="fas fa-gamepad"></i></div>
+        <div class="floating-icon" style="--i:5; --x:20%; --speed:0.08"><i class="fab fa-java"></i></div>
+        <div class="floating-icon" style="--i:6; --x:90%; --speed:0.05"><i class="fas fa-vr-cardboard"></i></div>
+    </div>
+
+    <!-- Projects Section -->
+    <section id="projects" class="slide">
+        <h2 class="section-title">Projects & Activities</h2>
+        <div class="projects-grid">
+            {% for project in data.projects %}
+            <div class="project-card">
+                <h3>{{ project.name }}</h3>
+                <span class="year-badge">{{ project.year }}</span>
+                <p>{{ project.description }}</p>
+                {% if project.link %}
+                <a href="{{ project.link }}" target="_blank" class="project-link-btn">View Project <i
+                        class="fas fa-external-link-alt"></i></a>
+                {% endif %}
+                <div class="card-overlay"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="slide">
+        <div class="content center-content">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>Feel free to reach out for collaborations or just a friendly hello!</p>
+            <div class="contact-links">
+                <a href="mailto:{{ data.contact.email }}@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="{{ data.contact.linkedin }}" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/{{ data.contact.github }}" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="tel:{{ data.contact.phone }}" class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>{{ data.contact.phone }}</span>
+                </a>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2026 {{ data.name }}. All rights reserved.</p>
+            <!-- Chat Widget -->
+            <div id="chat-widget" class="chat-widget">
+                <div class="chat-header" id="chat-toggle">
+                    <div class="chat-title">
+                        <i class="fas fa-robot"></i>
+                        <span>Ask AI Assistant</span>
+                    </div>
+                    <i class="fas fa-chevron-up toggle-icon"></i>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot-message">
+                            Hi! I'm an AI assistant. Ask me anything about Kushal's portfolio.
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type a message...">
+                        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+</div>
+{% endblock %}
